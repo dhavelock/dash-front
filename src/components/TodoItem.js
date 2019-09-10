@@ -2,7 +2,9 @@ import React, { Component } from "react";
 
 class TodoItem extends Component {
   render() {
-    return <div>To do item</div>;
+    const { item } = this.props
+
+    return <div>{ item.title }</div>;
   }
 }
 
