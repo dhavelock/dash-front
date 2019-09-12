@@ -1,7 +1,10 @@
 import axios from "axios";
 import * as type from "./index";
 
-const ROOT_URL = "http://127.0.0.1:8000";
+const ROOT_URL =
+  process.env.ENV === "production"
+    ? "https://dashtable-core.herokuapp.com/"
+    : "http://127.0.0.1:8000";
 
 export const fetchLists = values => dispatch => {
   const request = axios({

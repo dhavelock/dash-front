@@ -10,6 +10,8 @@ import rootReducer from "./reducers";
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
+require('dotenv').config()
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
