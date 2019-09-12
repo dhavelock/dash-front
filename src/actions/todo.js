@@ -3,7 +3,7 @@ import * as type from "./index";
 
 const ROOT_URL =
   window.location.href.includes("dashtable.herokuapp.com")
-    ? "https://dashtable-core.herokuapp.com/"
+    ? "https://dashtable-core.herokuapp.com"
     : "http://127.0.0.1:8000";
 
 
