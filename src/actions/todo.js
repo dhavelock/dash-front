@@ -2,9 +2,11 @@ import axios from "axios";
 import * as type from "./index";
 
 const ROOT_URL =
-  window.location.href === "dashtable.herokuapp.com"
+  window.location.href.includes("dashtable.herokuapp.com")
     ? "https://dashtable-core.herokuapp.com/"
     : "http://127.0.0.1:8000";
+
+
 
 export const fetchLists = values => dispatch => {
   const request = axios({
