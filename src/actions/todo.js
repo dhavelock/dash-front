@@ -1,10 +1,10 @@
 import axios from "axios";
 import * as type from "./index";
 
-console.log("env", process.env.ENV)
+console.log("env", process.env.NODE_ENV)
 
 const ROOT_URL =
-  process.env.ENV === "production"
+  process.env.NODE_ENV === "production"
     ? "https://dashtable-core.herokuapp.com/"
     : "http://127.0.0.1:8000";
 
