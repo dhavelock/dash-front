@@ -27,3 +27,39 @@ export const fetchLists = values => dispatch => {
       console.log(error);
     });
 };
+
+export const addTodoItem = values => dispatch => {
+  const request = axios({
+    method: "POST",
+    url: `${ROOT_URL}/todo/item/`,
+    data: values,
+    headers: {}
+  });
+
+  return request
+    .then(response => {
+      console.log(response)
+      dispatch({
+        type: type.ADD_TODO_ITEM,
+        payload: response.data.item
+      });
+      dispatch({
+        type: type.HIDE_ADD_LIST_MODAL
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
+export const showAddListModal = () => dispatch => {
+  dispatch({
+    type: type.SHOW_ADD_LIST_MODAL
+  })
+}
+
+export const hideAddListModal = () => dispatch => {
+  dispatch({
+    type: type.HIDE_ADD_LIST_MODAL
+  })
+}

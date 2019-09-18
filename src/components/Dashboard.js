@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Grid from "@material-ui/core/Grid";
+import Modal from "@material-ui/core/Modal";
 
 import Calendar from "./Calendar";
 import TodoList from "./TodoList";
 import Header from "./Header";
 
-class App extends Component {
+class Dashboard extends Component {
   render() {
     return (
       <div>
@@ -26,4 +28,13 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    addListModal: state.todo.addListModal
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Dashboard);

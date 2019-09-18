@@ -8,9 +8,16 @@ import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import Grid from "@material-ui/core/Grid";
+import Icon from "@material-ui/core/Icon";
 
-import { fetchLists } from "../actions/todo";
+import {
+  fetchLists,
+  showAddListModal,
+  hideAddListModal
+} from "../actions/todo";
+
 import TodoItem from "./TodoItem";
+import AddListModal from "./modals/AddListModal"
 
 const styles = {
   title: {
@@ -19,14 +26,13 @@ const styles = {
   },
   root: {
     width: "100%",
-    maxWidth: 360,
     backgroundColor: "#F5F5F5"
   }
 };
 
 class TodoList extends Component {
   state = {
-    currentList: 0,
+    currentList: 0
   };
 
   componentDidMount() {
@@ -34,15 +40,19 @@ class TodoList extends Component {
   }
 
   onClickRight() {
-    if (this.state.currentList < this.props.lists.length-1) {
-      this.setState({ currentList: this.state.currentList+1 })
+    if (this.state.currentList < this.props.lists.length - 1) {
+      this.setState({ currentList: this.state.currentList + 1 });
     }
   }
 
   onClickLeft() {
     if (this.state.currentList > 0) {
-      this.setState({ currentList: this.state.currentList-1 })
+      this.setState({ currentList: this.state.currentList - 1 });
     }
+  }
+
+  onClickPlus() {
+    this.props.showAddListModal();
   }
 
   render() {
@@ -55,6 +65,7 @@ class TodoList extends Component {
     return (
       <div style={styles.title}>
         <div>
+          <AddListModal list={this.state.currentList} />
           <Grid
             container
             direction="row"
@@ -63,10 +74,25 @@ class TodoList extends Component {
           >
             <Typography>{list.name}</Typography>
             <div>
-              <IconButton aria-label="delete" size="medium" disabled={this.state.currentList === 0} onClick={this.onClickLeft.bind(this)}>
+              <IconButton size="medium" onClick={this.onClickPlus.bind(this)}>
+                <Icon size="medium">add</Icon>
+              </IconButton>
+              <IconButton
+                aria-label="delete"
+                size="medium"
+                disabled={this.state.currentList === 0}
+                onClick={this.onClickLeft.bind(this)}
+              >
                 <KeyboardArrowLeft fontSize="inherit" />
               </IconButton>
-              <IconButton aria-label="delete" size="medium" disabled={this.state.currentList === this.props.lists.length-1} onClick={this.onClickRight.bind(this)}>
+              <IconButton
+                aria-label="delete"
+                size="medium"
+                disabled={
+                  this.state.currentList === this.props.lists.length - 1
+                }
+                onClick={this.onClickRight.bind(this)}
+              >
                 <KeyboardArrowRight fontSize="inherit" />
               </IconButton>
             </div>
@@ -90,7 +116,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchLists }, dispatch);
+  return bindActionCreators({ fetchLists, showAddListModal }, dispatch);
 }
 
 export default connect(
