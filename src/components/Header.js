@@ -1,7 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
 import Button from "@material-ui/core/Button";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
+
+import { toggleView } from "../actions/todo";
 
 // OAuth client id
 const CLIENT_ID =
@@ -16,6 +21,10 @@ const EVENTS_LIST_URL = `https://www.googleapis.com/calendar/v3/calendars/dylan.
 class Header extends Component {
   onClick() {
     console.log("button click");
+  }
+
+  onClickView() {
+    this.props.toggleView();
   }
 
   responseGoogle = response => {
@@ -40,8 +49,8 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <Button variant="outlined" onClick={this.onClick.bind(this)}>
-          Add Calendar
+        <Button variant="outlined" onClick={this.onClickView.bind(this)}>
+          View
         </Button>
         <GoogleLogin
           clientId={CLIENT_ID}
@@ -49,10 +58,27 @@ class Header extends Component {
           onSuccess={this.responseGoogle.bind(this)}
           onFailure={this.responseGoogle.bind(this)}
           cookiePolicy={"single_host_origin"}
+          render={renderProps => (
+            <Button
+              variant="outlined"
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+            >
+              Add Calendar
+            </Button>
+          )}
         />
       </div>
     );
   }
 }
 
-export default Header;
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ toggleView }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

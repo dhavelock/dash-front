@@ -7,21 +7,36 @@ import Calendar from "./Calendar";
 import TodoList from "./TodoList";
 import Header from "./Header";
 
+import ListView from "./ListView";
+
 class Dashboard extends Component {
   render() {
+    console.log(this.props.view);
+
     return (
       <div>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Header />
+        {this.props.view ? (
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Header />
+            </Grid>
+            <Grid item xs={8}>
+              <Calendar />
+            </Grid>
+            <Grid item xs={4}>
+              <TodoList />
+            </Grid>
           </Grid>
-          <Grid item xs={8}>
-            <Calendar />
+        ) : (
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Header />
+            </Grid>
+            <Grid item xs={12}>
+              <ListView />
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <TodoList />
-          </Grid>
-        </Grid>
+        )}
       </div>
     );
   }
@@ -29,7 +44,7 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
   return {
-    addListModal: state.todo.addListModal
+    view: state.todo.view
   };
 }
 

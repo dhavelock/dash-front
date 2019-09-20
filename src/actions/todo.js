@@ -80,3 +80,10 @@ export const hideAddListModal = () => dispatch => {
     type: type.HIDE_ADD_LIST_MODAL
   });
 };
+
+export const toggleView = () => dispatch => {
+  dispatch({
+    type: type.TOGGLE_VIEW
+  });
+};
+

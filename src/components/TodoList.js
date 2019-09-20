@@ -71,7 +71,7 @@ class TodoList extends Component {
             justify="space-between"
             alignItems="center"
           >
-            <Typography>{list.name}</Typography>
+            <Typography style={{ paddingLeft: "5px"}}>{list.name}</Typography>
             <div>
               <IconButton size="medium" onClick={this.onClickPlus.bind(this)}>
                 <Icon size="medium">add</Icon>

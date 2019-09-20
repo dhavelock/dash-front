@@ -2,7 +2,8 @@ import * as type from "../actions/index";
 
 const initialState = {
   lists: [],
-  addListModal: false
+  addListModal: false,
+  view: true
 };
 
 export default function(state = initialState, action) {
@@ -54,6 +55,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         addListModal: false
+      };
+
+    case type.TOGGLE_VIEW:
+      return {
+        ...state,
+        view: !state.view
       };
 
     default:
