@@ -12,8 +12,7 @@ import Icon from "@material-ui/core/Icon";
 
 import {
   fetchLists,
-  showAddListModal,
-  hideAddListModal
+  showAddListModal
 } from "../actions/todo";
 
 import TodoItem from "./TodoItem";

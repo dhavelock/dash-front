@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import Typography from "@material-ui/core/Typography";
 import ListItem from "@material-ui/core/ListItem";
@@ -6,6 +8,8 @@ import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
+
+import { deleteTodoItem } from "../actions/todo";
 
 const styles = {
   item: {
@@ -20,7 +24,13 @@ const styles = {
 };
 
 class TodoItem extends Component {
-  onDelete() {}
+  onDelete() {
+    const { item } = this.props;
+    const data = {
+      id: item.id
+    };
+    this.props.deleteTodoItem(data);
+  }
 
   render() {
     const { item } = this.props;
@@ -56,4 +66,15 @@ class TodoItem extends Component {
   }
 }
 
-export default TodoItem;
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ deleteTodoItem }, dispatch);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoItem);

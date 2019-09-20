@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Grid from "@material-ui/core/Grid";
-import Modal from "@material-ui/core/Modal";
 
 import Calendar from "./Calendar";
 import TodoList from "./TodoList";
