@@ -20,9 +20,8 @@ class AddListModal extends Component {
   onSubmit(values) {
     const data = {
       ...values,
-      list: this.props.lists[this.props.list].id
+      list: this.props.list
     };
-
     this.props.addTodoItem(data);
   }
 
@@ -30,10 +29,12 @@ class AddListModal extends Component {
     const { handleSubmit } = this.props;
     const open = this.props.addListModal;
 
+    console.log(this.props.list);
+
     return (
       <div>
-        <Dialog open={open} onClose={this.props.hideAddListModal}>
-          <DialogTitle id="form-dialog-title">Add a list</DialogTitle>
+        <Dialog key={this.props.list} open={open===this.props.list} onClose={this.props.hideAddListModal}>
+          <DialogTitle id="form-dialog-title">Add a list item {this.props.list}</DialogTitle>
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <DialogContent>
               <Field name="title" label="Title" component={renderTextField} />

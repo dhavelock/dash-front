@@ -11,8 +11,6 @@ import ListView from "./ListView";
 
 class Dashboard extends Component {
   render() {
-    console.log(this.props.view);
-
     return (
       <div>
         {this.props.view ? (

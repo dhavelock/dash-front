@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 
+import { withStyles } from "@material-ui/styles";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,26 +16,21 @@ import { fetchLists, showAddListModal } from "../actions/todo";
 import TodoItem from "./TodoItem";
 import AddListModal from "./modals/AddListModal";
 
-const styles = {
-  title: {
-    width: "250px",
-    backgroundColor: "#F5F5F5",
-    color: "#212121",
-    padding: "1px"
-  },
+const styles = theme => ({
   root: {
-    width: "100%",
-    backgroundColor: "#F5F5F5"
+    width: "250px",
+    backgroundColor: theme.palette.background.paper
   }
-};
+});
 
 class ListView extends Component {
   componentDidMount() {
     this.props.fetchLists();
   }
 
-  onClickPlus() {
-    this.props.showAddListModal();
+  onClickPlus(list) {
+    console.log('onClickPlus', list)
+    this.props.showAddListModal(list);
   }
 
   render() {
@@ -41,33 +38,35 @@ class ListView extends Component {
       return <div />;
     }
 
-    const { lists } = this.props;
+    const { lists, classes } = this.props;
 
     return (
       <Box display="flex" flexDirection="row">
         {lists.map((list, index) => {
           return (
-            <Box style={styles.title} key={index}>
+            <Box key={index}>
               <div>
-                <AddListModal list={index} />
+                <AddListModal key={index} list={list.id} />
                 <Grid
                   container
                   direction="row"
                   justify="space-between"
                   alignItems="center"
                 >
-                  <Typography style={{ paddingLeft: "5px"}}>{list.name}</Typography>
+                  <Typography style={{ paddingLeft: "5px" }}>
+                    {list.name}
+                  </Typography>
                   <div>
                     <IconButton
                       size="medium"
-                      onClick={this.onClickPlus.bind(this)}
+                      onClick={() => this.onClickPlus(list.id)}
                     >
                       <Icon size="medium">add</Icon>
                     </IconButton>
                   </div>
                 </Grid>
               </div>
-              <List style={styles.root}>
+              <List className={classes.root}>
                 {list.items.map((item, index) => {
                   return <TodoItem item={item} key={index} />;
                 })}
@@ -90,7 +89,13 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchLists, showAddListModal }, dispatch);
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ListView);
+ListView.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ListView)
+);

@@ -8,22 +8,15 @@ import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
+import Grow from "@material-ui/core/Grow";
 
 import { deleteTodoItem } from "../actions/todo";
 
-const styles = {
-  item: {
-    backgroundColor: "#B0BEC5",
-    color: "#FFFFFF",
-    width: "100%"
-  },
-  secondary: {
-    display: "inline",
-    color: "#FAFAFA"
-  }
-};
-
 class TodoItem extends Component {
+  state = {
+    show: true
+  };
+
   onDelete() {
     const { item } = this.props;
     const data = {
@@ -37,7 +30,7 @@ class TodoItem extends Component {
 
     return (
       <div>
-        <ListItem style={styles.item} alignItems="flex-start">
+        <ListItem alignItems="flex-start">
           <ListItemText
             primary={item.title}
             secondary={
@@ -45,7 +38,6 @@ class TodoItem extends Component {
                 <Typography
                   component="span"
                   variant="body2"
-                  style={styles.secondary}
                   color="textPrimary"
                 >
                   {item.description}

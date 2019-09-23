@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import PropTypes from 'prop-types';
 
+import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -10,24 +12,17 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 
-import {
-  fetchLists,
-  showAddListModal
-} from "../actions/todo";
+import { fetchLists, showAddListModal } from "../actions/todo";
 
 import TodoItem from "./TodoItem";
-import AddListModal from "./modals/AddListModal"
+import AddListModal from "./modals/AddListModal";
 
-const styles = {
-  title: {
-    backgroundColor: "#F5F5F5",
-    color: "#212121"
-  },
+const styles = theme => ({
   root: {
-    width: "100%",
-    backgroundColor: "#F5F5F5"
+    width: "250px",
+    backgroundColor: theme.palette.background.paper
   }
-};
+});
 
 class TodoList extends Component {
   state = {
@@ -50,8 +45,8 @@ class TodoList extends Component {
     }
   }
 
-  onClickPlus() {
-    this.props.showAddListModal();
+  onClickPlus(list) {
+    this.props.showAddListModal(list);
   }
 
   render() {
@@ -60,20 +55,21 @@ class TodoList extends Component {
     }
 
     const list = this.props.lists[this.state.currentList]; // take first list
+    const { classes } = this.props;
 
     return (
-      <div style={styles.title}>
+      <div>
         <div>
-          <AddListModal list={this.state.currentList} />
+          <AddListModal list={list.id} />
           <Grid
             container
             direction="row"
             justify="space-between"
             alignItems="center"
           >
-            <Typography style={{ paddingLeft: "5px"}}>{list.name}</Typography>
+            <Typography style={{ paddingLeft: "5px" }}>{list.name}</Typography>
             <div>
-              <IconButton size="medium" onClick={this.onClickPlus.bind(this)}>
+              <IconButton size="medium" onClick={() => this.onClickPlus(list.id)}>
                 <Icon size="medium">add</Icon>
               </IconButton>
               <IconButton
@@ -98,7 +94,7 @@ class TodoList extends Component {
           </Grid>
         </div>
 
-        <List style={styles.root}>
+        <List className={classes.root}>
           {list.items.map((item, index) => {
             return <TodoItem item={item} key={index} />;
           })}
@@ -118,7 +114,13 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchLists, showAddListModal }, dispatch);
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TodoList);
+TodoList.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(TodoList)
+);

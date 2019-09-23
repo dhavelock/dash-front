@@ -69,8 +69,9 @@ export const deleteTodoItem = values => dispatch => {
     });
 };
 
-export const showAddListModal = () => dispatch => {
+export const showAddListModal = (value) => dispatch => {
   dispatch({
+    payload: value,
     type: type.SHOW_ADD_LIST_MODAL
   });
 };

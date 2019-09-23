@@ -2,8 +2,8 @@ import * as type from "../actions/index";
 
 const initialState = {
   lists: [],
-  addListModal: false,
-  view: true
+  addListModal: 0,
+  view: false
 };
 
 export default function(state = initialState, action) {
@@ -22,6 +22,7 @@ export default function(state = initialState, action) {
     case type.ADD_TODO_ITEM:
       const newListsAdd = [...state.lists];
       for (var i = 0; i < newListsAdd.length; i++) {
+        console.log(newListsAdd[i].id, action.payload.todolist)
         if (newListsAdd[i].id === action.payload.todolist) {
           newListsAdd[i].items.push(action.payload);
           break;
@@ -35,7 +36,7 @@ export default function(state = initialState, action) {
     case type.SHOW_ADD_LIST_MODAL:
       return {
         ...state,
-        addListModal: true
+        addListModal: action.payload
       };
 
     case type.DELETE_TODO_ITEM:
@@ -54,7 +55,7 @@ export default function(state = initialState, action) {
     case type.HIDE_ADD_LIST_MODAL:
       return {
         ...state,
-        addListModal: false
+        addListModal: 0
       };
 
     case type.TOGGLE_VIEW:
