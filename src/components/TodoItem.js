@@ -29,31 +29,39 @@ class TodoItem extends Component {
     const { item } = this.props;
 
     return (
-      <div>
-        <ListItem alignItems="flex-start">
-          <ListItemText
-            primary={item.title}
-            secondary={
-              <React.Fragment>
-                <Typography
-                  component="span"
-                  variant="body2"
-                  color="textPrimary"
-                >
-                  {item.description}
-                </Typography>
-              </React.Fragment>
-            }
-          />
-          <IconButton size="small" onClick={this.onDelete.bind(this)}>
-            <Icon size="small">clear</Icon>
-          </IconButton>
-          <IconButton size="small">
-            <Icon size="small">more_vert</Icon>
-          </IconButton>
-        </ListItem>
-        <Divider component="li" />
-      </div>
+      <Grow
+        in={this.state.show}
+        timeout={{
+          enter: 500,
+          exit: 500
+        }}
+      >
+        <div>
+          <ListItem alignItems="flex-start">
+            <ListItemText
+              primary={item.title}
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="textPrimary"
+                  >
+                    {item.description}
+                  </Typography>
+                </React.Fragment>
+              }
+            />
+            <IconButton size="small" onClick={this.onDelete.bind(this)}>
+              <Icon size="small">clear</Icon>
+            </IconButton>
+            <IconButton size="small">
+              <Icon size="small">more_vert</Icon>
+            </IconButton>
+          </ListItem>
+          <Divider component="li" />
+        </div>
+      </Grow>
     );
   }
 }
