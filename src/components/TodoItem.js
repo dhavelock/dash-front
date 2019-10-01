@@ -21,7 +21,7 @@ const styles = theme => ({
     padding: "0px",
     margin: "8px",
     "&:hover": {
-      background: "#EEEEEE"
+      opacity: "0.5 !important"
     }
   }
 });
@@ -77,6 +77,10 @@ class TodoItem extends Component {
     const created = moment(item.timestamp);
     const itemColor = color(now, created);
 
+    const background = {
+      background: itemColor
+    };
+
     return (
       <Grow
         in={this.state.show}
@@ -86,7 +90,7 @@ class TodoItem extends Component {
         }}
       >
         <Card
-          style={{ background: itemColor }}
+          style={background}
           className={classes.card}
           onClick={this.onClick.bind(this)}
         >

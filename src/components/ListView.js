@@ -20,12 +20,13 @@ import AddListModal from "./modals/AddListModal";
 const styles = theme => ({
   root: {
     width: "auto",
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.default
   },
   card: {
     width: "280px",
     padding: "10px",
-    margin: "5px"
+    margin: "5px",
+    backgroundColor: theme.palette.background.default
   }
 });
 
