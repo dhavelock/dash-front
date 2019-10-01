@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import GoogleLogin from "react-google-login";
@@ -80,7 +79,11 @@ class Header extends Component {
           />
         </Grid>
         <Grid item xs style={{ textAlign: "center" }}>
-          <img style={{ width: "80px", height: "80px" }} alt="logo" src={logo} />
+          <img
+            style={{ width: "80px", height: "80px" }}
+            alt="logo"
+            src={logo}
+          />
         </Grid>
         <Grid item xs></Grid>
       </Grid>
