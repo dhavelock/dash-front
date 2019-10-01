@@ -2,29 +2,51 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
+import moment from "moment";
 
 import { withStyles } from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import Grow from "@material-ui/core/Grow";
 import Card from "@material-ui/core/Card";
-import ButtonBase from '@material-ui/core/ButtonBase';
 
 import { deleteTodoItem } from "../actions/todo";
+// import color from "../themes/helpers/ItemColor";
 
 const styles = theme => ({
   card: {
     padding: "0px",
     margin: "8px",
-    '&:hover': {
-      background: "#EEEEEE",
-   },
+    "&:hover": {
+      background: "#EEEEEE"
+    }
   }
 });
+
+function color(now, created) {
+  var period = 7.0;
+  var days = (now - created) / (1000 * 3600 * 24);
+  var factor = days > period ? 1.0 : days / period;
+
+  var r1 = 99.0;
+  var r2 = 255.0;
+  var g1 = 255.0;
+  var g2 = 65.0;
+  var b1 = 33.0;
+  var b2 = 0.0;
+
+  var r = Math.round(factor * (r2 - r1) + r1).toString(16);
+  var rHex = r.length === 1 ? "0" + r : r;
+  var g = Math.round(factor * (g2 - g1) + g1).toString(16);
+  var gHex = g.length === 1 ? "0" + g : g;
+  var b = Math.round(factor * (b2 - b1) + b1).toString(16);
+  var bHex = b.length === 1 ? "0" + b : b;
+
+  return "#" + rHex + gHex + bHex;
+}
 
 class TodoItem extends Component {
   state = {
@@ -51,6 +73,10 @@ class TodoItem extends Component {
   render() {
     const { item, classes } = this.props;
 
+    const now = moment();
+    const created = moment(item.timestamp);
+    const itemColor = color(now, created);
+
     return (
       <Grow
         in={this.state.show}
@@ -59,7 +85,11 @@ class TodoItem extends Component {
           exit: 500
         }}
       >
-        <Card className={classes.card} onClick={this.onClick.bind(this)}>
+        <Card
+          style={{ background: itemColor }}
+          className={classes.card}
+          onClick={this.onClick.bind(this)}
+        >
           <ListItem alignItems="flex-start">
             <ListItemText
               primary={item.title}
@@ -82,7 +112,6 @@ class TodoItem extends Component {
               <Icon size="small">more_vert</Icon>
             </IconButton>
           </ListItem>
-          {/* <Divider component="li" /> */}
         </Card>
       </Grow>
     );

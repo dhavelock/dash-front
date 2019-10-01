@@ -10,7 +10,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
-import { flexbox } from "@material-ui/system";
 import Card from "@material-ui/core/Card";
 
 import { fetchLists, showAddListModal } from "../actions/todo";

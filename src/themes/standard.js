@@ -2,4 +2,4 @@ const theme = () => {
   return {};
 };
 
-export default theme
+export default theme;
