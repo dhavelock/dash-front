@@ -29,8 +29,6 @@ class AddListModal extends Component {
     const { handleSubmit } = this.props;
     const open = this.props.addListModal;
 
-    console.log(this.props.list);
-
     return (
       <div>
         <Dialog key={this.props.list} open={open===this.props.list} onClose={this.props.hideAddListModal}>

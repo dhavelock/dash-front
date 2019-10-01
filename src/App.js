@@ -3,7 +3,9 @@ import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import Dashboard from "./components/Dashboard";
 
-const theme = createMuiTheme();
+import { standard } from "./themes"
+
+const theme = createMuiTheme(standard);
 
 class App extends Component {
   render() {

@@ -10,6 +10,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
+import { flexbox } from "@material-ui/system";
+import Card from "@material-ui/core/Card";
 
 import { fetchLists, showAddListModal } from "../actions/todo";
 
@@ -18,8 +20,13 @@ import AddListModal from "./modals/AddListModal";
 
 const styles = theme => ({
   root: {
-    width: "250px",
+    width: "auto",
     backgroundColor: theme.palette.background.paper
+  },
+  card: {
+    width: "280px",
+    padding: "10px",
+    margin: "5px"
   }
 });
 
@@ -29,7 +36,6 @@ class ListView extends Component {
   }
 
   onClickPlus(list) {
-    console.log('onClickPlus', list)
     this.props.showAddListModal(list);
   }
 
@@ -44,34 +50,36 @@ class ListView extends Component {
       <Box display="flex" flexDirection="row">
         {lists.map((list, index) => {
           return (
-            <Box key={index}>
-              <div>
-                <AddListModal key={index} list={list.id} />
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="center"
-                >
-                  <Typography style={{ paddingLeft: "5px" }}>
-                    {list.name}
-                  </Typography>
-                  <div>
-                    <IconButton
-                      size="medium"
-                      onClick={() => this.onClickPlus(list.id)}
-                    >
-                      <Icon size="medium">add</Icon>
-                    </IconButton>
-                  </div>
-                </Grid>
-              </div>
-              <List className={classes.root}>
-                {list.items.map((item, index) => {
-                  return <TodoItem item={item} key={index} />;
-                })}
-              </List>
-            </Box>
+            <Card className={classes.card} key={index}>
+              <Box key={index}>
+                <div>
+                  <AddListModal key={index} list={list.id} />
+                  <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                  >
+                    <Typography style={{ paddingLeft: "5px" }}>
+                      {list.name}
+                    </Typography>
+                    <div>
+                      <IconButton
+                        size="medium"
+                        onClick={() => this.onClickPlus(list.id)}
+                      >
+                        <Icon size="medium">add</Icon>
+                      </IconButton>
+                    </div>
+                  </Grid>
+                </div>
+                <List className={classes.root}>
+                  {list.items.map((item, index) => {
+                    return <TodoItem item={item} key={index} />;
+                  })}
+                </List>
+              </Box>
+            </Card>
           );
         })}
       </Box>

@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
+import Avatar from "@material-ui/core/Avatar";
+import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 
 import { toggleView } from "../actions/todo";
+
+import logo from "../static/images/react_logo.png";
 
 // OAuth client id
 const CLIENT_ID =
@@ -48,27 +52,38 @@ class Header extends Component {
 
   render() {
     return (
-      <div>
-        <Button variant="outlined" onClick={this.onClickView.bind(this)}>
-          View
-        </Button>
-        <GoogleLogin
-          clientId={CLIENT_ID}
-          buttonText="Login"
-          onSuccess={this.responseGoogle.bind(this)}
-          onFailure={this.responseGoogle.bind(this)}
-          cookiePolicy={"single_host_origin"}
-          render={renderProps => (
-            <Button
-              variant="outlined"
-              onClick={renderProps.onClick}
-              disabled={renderProps.disabled}
-            >
-              Add Calendar
-            </Button>
-          )}
-        />
-      </div>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item xs>
+          <Button variant="outlined" onClick={this.onClickView.bind(this)}>
+            View
+          </Button>
+          <GoogleLogin
+            clientId={CLIENT_ID}
+            buttonText="Login"
+            onSuccess={this.responseGoogle.bind(this)}
+            onFailure={this.responseGoogle.bind(this)}
+            cookiePolicy={"single_host_origin"}
+            render={renderProps => (
+              <Button
+                variant="outlined"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              >
+                Add Calendar
+              </Button>
+            )}
+          />
+        </Grid>
+        <Grid item xs style={{ textAlign: "center" }}>
+          <img style={{ width: "80px", height: "80px" }} alt="logo" src={logo} />
+        </Grid>
+        <Grid item xs></Grid>
+      </Grid>
     );
   }
 }
@@ -81,4 +96,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ toggleView }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
