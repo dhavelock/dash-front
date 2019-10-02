@@ -59,9 +59,9 @@ class Header extends Component {
       >
         <Grid item xs>
           <Button variant="outlined" onClick={this.onClickView.bind(this)}>
-            View
+            Toggle
           </Button>
-          <GoogleLogin
+          {/* <GoogleLogin
             clientId={CLIENT_ID}
             buttonText="Login"
             onSuccess={this.responseGoogle.bind(this)}
@@ -76,11 +76,11 @@ class Header extends Component {
                 Add Calendar
               </Button>
             )}
-          />
+          /> */}
         </Grid>
         <Grid item xs style={{ textAlign: "center" }}>
           <img
-            style={{ width: "80px", height: "80px" }}
+            style={{ width: "60px", height: "60px" }}
             alt="logo"
             src={logo}
           />

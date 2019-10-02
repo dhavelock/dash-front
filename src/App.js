@@ -9,7 +9,6 @@ const theme = createMuiTheme(standard);
 
 class App extends Component {
   render() {
-    console.log(theme)
     return (
       <ThemeProvider theme={theme}>
         <Dashboard />

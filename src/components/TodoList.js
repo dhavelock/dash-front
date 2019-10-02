@@ -19,7 +19,7 @@ import AddListModal from "./modals/AddListModal";
 
 const styles = theme => ({
   root: {
-    width: "250px",
+    width: "100%",
     backgroundColor: theme.palette.background.paper
   }
 });

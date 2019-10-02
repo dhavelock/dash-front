@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import Calendar from "./Calendar";
 import TodoList from "./TodoList";
 import Header from "./Header";
-
 import ListView from "./ListView";
 
 class Dashboard extends Component {
