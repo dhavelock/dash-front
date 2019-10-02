@@ -32,7 +32,7 @@ class AddListModal extends Component {
     return (
       <div>
         <Dialog key={this.props.list} open={open===this.props.list} onClose={this.props.hideAddListModal}>
-          <DialogTitle id="form-dialog-title">Add a list item {this.props.list}</DialogTitle>
+          <DialogTitle id="form-dialog-title">Add a list item</DialogTitle>
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <DialogContent>
               <Field name="title" label="Title" component={renderTextField} />

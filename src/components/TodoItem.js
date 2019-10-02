@@ -63,6 +63,7 @@ class TodoItem extends Component {
   }
 
   onDelete() {
+    this.setState({ show: false });
     const { item } = this.props;
     const data = {
       id: item.id
