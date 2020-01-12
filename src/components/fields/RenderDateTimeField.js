@@ -1,15 +1,14 @@
 import TextField from "@material-ui/core/TextField";
-import React from "react";
+import React from 'react';
 
-export const renderTextField = props => {
+export const renderDateTimeField = props => {
   return (
     <TextField
-      fullWidth
+      id="datetime"
       margin="dense"
-      type={props.type}
-      label={props.label}
+      type="datetime-local"
       {...props.input}
       {...props.custom}
     />
   );
-};
+}

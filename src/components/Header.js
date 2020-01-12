@@ -4,22 +4,11 @@ import { bindActionCreators } from "redux";
 
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import GoogleLogin from "react-google-login";
-import axios from "axios";
 
 import { toggleView } from "../actions/todo";
+import { authLogout } from "../actions/auth";
 
 import logo from "../static/images/react_logo.png";
-
-// OAuth client id
-const CLIENT_ID =
-  "977909200493-ockp0clkj7jn2h1hteepv03j2obtembq.apps.googleusercontent.com";
-
-// Api key
-const API_KEY = "AIzaSyBqY4iBgonhZyDcruPRsJzukuoGZlezplI";
-
-// API Call
-const EVENTS_LIST_URL = `https://www.googleapis.com/calendar/v3/calendars/dylan.havelock%40gmail.com/events?key=${API_KEY}`;
 
 class Header extends Component {
   onClick() {
@@ -30,24 +19,9 @@ class Header extends Component {
     this.props.toggleView();
   }
 
-  responseGoogle = response => {
-    console.log(response);
-    const accessToken = response.Zi.access_token;
-
-    axios({
-      method: "GET",
-      url: EVENTS_LIST_URL,
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    })
-      .then(res => {
-        console.log("res 2", res);
-      })
-      .catch(err => {
-        console.log("err 2", err);
-      });
-  };
+  onClickLogout() {
+    this.props.authLogout();
+  }
 
   render() {
     return (
@@ -61,22 +35,9 @@ class Header extends Component {
           <Button variant="outlined" onClick={this.onClickView.bind(this)}>
             Toggle
           </Button>
-          {/* <GoogleLogin
-            clientId={CLIENT_ID}
-            buttonText="Login"
-            onSuccess={this.responseGoogle.bind(this)}
-            onFailure={this.responseGoogle.bind(this)}
-            cookiePolicy={"single_host_origin"}
-            render={renderProps => (
-              <Button
-                variant="outlined"
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-              >
-                Add Calendar
-              </Button>
-            )}
-          /> */}
+          <Button variant="outlined" onClick={this.onClickLogout.bind(this)}>
+            Logout
+          </Button>
         </Grid>
         <Grid item xs style={{ textAlign: "center" }}>
           <img
@@ -96,10 +57,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ toggleView }, dispatch);
+  return bindActionCreators({ toggleView, authLogout }, dispatch);
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 
 import Calendar from "./Calendar";
+import CalendarForm from "./CalendarForm"
 import TodoList from "./TodoList";
 import Header from "./Header";
 import ListView from "./ListView";
@@ -19,6 +20,7 @@ class Dashboard extends Component {
             </Grid>
             <Grid item xs={8}>
               <Calendar />
+              <CalendarForm />
             </Grid>
             <Grid item xs={4}>
               <TodoList />

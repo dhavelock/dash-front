@@ -10,3 +10,12 @@ export const HIDE_ADD_LIST_MODAL = "HIDE_ADD_LIST_MODAL";
 
 // Display
 export const TOGGLE_VIEW = "TOGGLE_VIEW";
+
+// Authentication
+export const AUTH_START = "AUTH_START";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_FAIL = "AUTH_FAIL";
+export const AUTH_LOGOUT = "AUTH_LOGOUT";
+
+// Account
+export const SET_CALENDAR_URL = "SET_CALENDAR_URL";
