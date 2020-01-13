@@ -29,7 +29,7 @@ class Header extends Component {
       >
         <Grid item xs>
           <Button variant="outlined" onClick={this.onClickView.bind(this)}>
-            Toggle
+            &nbsp;&nbsp;&nbsp;View&nbsp;&nbsp;&nbsp;
           </Button>
         </Grid>
         <Grid item xs style={{ textAlign: "center" }}>

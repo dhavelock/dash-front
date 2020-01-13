@@ -18,11 +18,11 @@ class Dashboard extends Component {
             <Grid item xs={12}>
               <Header />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12} sm={8}>
               <Calendar />
               <CalendarForm />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={4}>
               <TodoList />
             </Grid>
           </Grid>
