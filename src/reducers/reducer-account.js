@@ -7,7 +7,6 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case type.SET_CALENDAR_URL:
-      console.log("reducer", action)
       return {
         ...state,
         calendarUrl: action.payload

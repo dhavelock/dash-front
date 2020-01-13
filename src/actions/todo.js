@@ -29,6 +29,30 @@ export const fetchLists = values => (dispatch, getState) => {
     });
 };
 
+export const addTodoList = values => (dispatch, getState) => {
+  const { token } = getState().auth
+
+  const request = axios({
+    method: "POST",
+    url: `${ROOT_URL}/todo/list/`,
+    data: values,
+    headers: {
+      "Authorization": `Token ${token}`
+    }
+  });
+
+  return request
+    .then(response => {
+      dispatch({
+        type: type.ADD_LIST,
+        payload: response.data
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
+
 export const addTodoItem = values => (dispatch, getState) => {
   const { token } = getState().auth
 

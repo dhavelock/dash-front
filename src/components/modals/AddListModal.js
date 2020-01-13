@@ -18,11 +18,13 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import FormLabel from "@material-ui/core/FormLabel";
+import moment from "moment";
 
 class AddListModal extends Component {
   onSubmit(values) {
     const data = {
       ...values,
+      deadline: moment(values.deadline),
       list: this.props.list
     };
     this.props.addTodoItem(data);

@@ -73,6 +73,8 @@ class TodoItem extends Component {
     const created = moment(item.timestamp);
     const itemColor = color(now, created);
 
+    const deadline = item.deadline == null ? "" : moment(item.deadline).format('MMMM Do, h:mm a');
+
     const background = {
       background: itemColor
     };
@@ -101,6 +103,13 @@ class TodoItem extends Component {
                     color="textPrimary"
                   >
                     {item.description}
+                  </Typography>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="textPrimary"
+                  >
+                    {deadline}
                   </Typography>
                 </React.Fragment>
               }

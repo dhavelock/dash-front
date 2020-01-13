@@ -19,6 +19,15 @@ export default function(state = initialState, action) {
         ...state
       };
 
+    case type.ADD_LIST:
+      var newList = [...state.lists];
+      newList.push(action.payload.list);
+
+      return {
+        ...state,
+        lists: newList
+      };
+
     case type.ADD_TODO_ITEM:
       const newListsAdd = [...state.lists];
       for (var i = 0; i < newListsAdd.length; i++) {
