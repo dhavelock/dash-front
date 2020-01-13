@@ -7,6 +7,7 @@ export const renderDateTimeField = props => {
       id="datetime"
       margin="dense"
       type="datetime-local"
+      disabled={props.disabled}
       {...props.input}
       {...props.custom}
     />

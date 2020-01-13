@@ -22,11 +22,19 @@ import moment from "moment";
 
 class AddListModal extends Component {
   onSubmit(values) {
-    const data = {
-      ...values,
-      deadline: moment(values.deadline),
-      list: this.props.list
-    };
+    var data;
+    if (values.deadline == null) {
+      data = {
+        ...values,
+        list: this.props.list
+      };
+    } else {
+      data = {
+        ...values,
+        deadline: moment(values.deadline),
+        list: this.props.list
+      };
+    }
     this.props.addTodoItem(data);
   }
 
