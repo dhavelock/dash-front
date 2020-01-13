@@ -49,10 +49,6 @@ function color(now, created) {
 }
 
 class TodoItem extends Component {
-  state = {
-    show: true
-  };
-
   onClick() {
     // NOTE: This will also trigger on edit and delete clicks
     console.log("Card Click");
@@ -63,7 +59,6 @@ class TodoItem extends Component {
   }
 
   onDelete() {
-    this.setState({ show: false });
     const { item } = this.props;
     const data = {
       id: item.id
@@ -84,7 +79,7 @@ class TodoItem extends Component {
 
     return (
       <Grow
-        in={this.state.show}
+        in={true}
         timeout={{
           enter: 500,
           exit: 500

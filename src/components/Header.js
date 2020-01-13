@@ -11,10 +11,6 @@ import { authLogout } from "../actions/auth";
 import logo from "../static/images/react_logo.png";
 
 class Header extends Component {
-  onClick() {
-    console.log("button click");
-  }
-
   onClickView() {
     this.props.toggleView();
   }

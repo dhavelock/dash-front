@@ -8,16 +8,14 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 class CalendarContainer extends Component {
   componentDidMount() {
-    console.log("did mount", this.props);
     this.props.fetchCalendarUrl();
   }
 
   render() {
-    console.log("url", this.props.calendarUrl);
     const url = this.props.calendarUrl;
     return (
       <div>
-        {url == null || url == "" ? (
+        {url == null || url === "" ? (
           <div></div>
         ) : (
           <iframe
@@ -38,7 +36,6 @@ class CalendarContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log("state", state);
   return {
     calendarUrl: state.account.calendarUrl
   };

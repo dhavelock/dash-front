@@ -6,7 +6,6 @@ const ROOT_URL = window.location.href.includes("dashtable.herokuapp.com")
   : "http://127.0.0.1:8000";
 
 export const fetchCalendarUrl = () => (dispatch, getState) => {
-  console.log("FETCH");
   const { token } = getState().auth;
 
   const request = axios({
@@ -31,8 +30,6 @@ export const fetchCalendarUrl = () => (dispatch, getState) => {
 
 export const setCalendarUrl = calendar => (dispatch, getState) => {
   const { token } = getState().auth;
-
-  console.log("yo calendar",calendar)
 
   const request = axios({
     method: "POST",

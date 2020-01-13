@@ -43,7 +43,6 @@ export const addTodoItem = values => (dispatch, getState) => {
 
   return request
     .then(response => {
-      console.log(response.data);
       dispatch({
         type: type.ADD_TODO_ITEM,
         payload: response.data.item
@@ -73,7 +72,10 @@ export const deleteTodoItem = values => (dispatch, getState) => {
     .then(response => {
       dispatch({
         type: type.DELETE_TODO_ITEM,
-        payload: response.data
+        payload: {
+          id: values.id,
+          list: response.data.list
+        }
       });
     })
     .catch(error => {

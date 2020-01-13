@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import Dashboard from "./components/Dashboard";
-import Login from "./components/Login";
+import LoginPage from "./components/LoginPage";
 
 import { standard } from "./themes"
 
@@ -18,7 +18,7 @@ class App extends Component {
       <ThemeProvider theme={theme}>
         {
           token == null ?
-          <Login />
+          <LoginPage />
           :
           <Dashboard />
         }

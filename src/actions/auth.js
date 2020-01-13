@@ -8,21 +8,21 @@ const ROOT_URL = window.location.href.includes("dashtable.herokuapp.com")
 export const authStart = () => {
   return {
     type: type.AUTH_START
-  }
+  };
 };
 
 export const authSuccess = token => {
   return {
     type: type.AUTH_SUCCESS,
     payload: token
-  }
+  };
 };
 
 export const authFail = error => {
   return {
     type: type.AUTH_FAIL,
     payload: error
-  }
+  };
 };
 
 export const authLogin = (username, password) => dispatch => {
@@ -39,7 +39,7 @@ export const authLogin = (username, password) => dispatch => {
 
   return request
     .then(response => {
-      const token = response.data.key
+      const token = response.data.key;
       dispatch(authSuccess(token));
     })
     .catch(error => {
@@ -50,18 +50,21 @@ export const authLogin = (username, password) => dispatch => {
 export const authLogout = () => dispatch => {
   dispatch({
     type: type.AUTH_LOGOUT
-  })
+  });
 };
 
-
-export const authSignup = (username, email, password1, password2) => dispatch => {
+export const authSignup = (
+  username,
+  password1,
+  password2
+) => dispatch => {
   dispatch(authStart());
   const request = axios({
     method: "POST",
-    url: `${ROOT_URL}/auth/signup/`,
+    url: `${ROOT_URL}/rest-auth/registration/`,
     data: {
       username: username,
-      email: email,
+      email: username,
       password1: password1,
       password2: password2
     },
@@ -70,8 +73,25 @@ export const authSignup = (username, email, password1, password2) => dispatch =>
 
   return request
     .then(response => {
-      const token = response.data.key
-      dispatch(authSuccess(token));
+      const token = response.data.key;
+
+      // Create in backend Profile
+      const request = axios({
+        method: "POST",
+        url: `${ROOT_URL}/account/profile/`,
+        data: {},
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      });
+
+      return request
+        .then(res => {
+          dispatch(authSuccess(token));
+        })
+        .catch(err => {
+          dispatch(authFail(err));
+        });
     })
     .catch(error => {
       dispatch(authFail(error));

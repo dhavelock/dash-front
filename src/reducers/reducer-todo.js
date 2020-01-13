@@ -22,7 +22,6 @@ export default function(state = initialState, action) {
     case type.ADD_TODO_ITEM:
       const newListsAdd = [...state.lists];
       for (var i = 0; i < newListsAdd.length; i++) {
-        console.log(newListsAdd[i].id, action.payload.todolist)
         if (newListsAdd[i].id === action.payload.todolist) {
           newListsAdd[i].items.push(action.payload);
           break;
@@ -40,13 +39,15 @@ export default function(state = initialState, action) {
       };
 
     case type.DELETE_TODO_ITEM:
-      const newListsDel = [...state.lists];
-      for (var j = 0; j < newListsDel.length; j++) {
+      var newListsDel = [...state.lists];
+
+      for (var j = 0; j < state.lists.length; j++) {
         if (newListsDel[j].id === action.payload.list.id) {
-          newListsDel[j] = action.payload.list;
+          newListsDel[j].items = action.payload.list.items.slice();
           break;
         }
       }
+
       return {
         ...state,
         lists: newListsDel
