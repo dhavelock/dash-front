@@ -32,14 +32,27 @@ function color(deadline, created) {
   var days = (now - created) / (1000 * 3600 * 24);
   var factor = days > period ? 1.0 : days / period;
 
-  console.log(factor);
+  var r1 = 69.0;
+  var rmid = 243.0;
+  var r2 = 243.0;
+  var g1 = 231.0;
+  var gmid = 243.0;
+  var g2 = 64.0;
+  var b1 = 134.0;
+  var bmid = 64.0;
+  var b2 = 64.0;
 
-  var r1 = 99.0;
-  var r2 = 255.0;
-  var g1 = 255.0;
-  var g2 = 65.0;
-  var b1 = 33.0;
-  var b2 = 0.0;
+  if (factor <= 0.5) {
+    r2 = rmid;
+    g2 = gmid;
+    b2 = bmid;
+    factor = factor * 2;
+  } else {
+    r1 = rmid;
+    g1 = gmid;
+    b1 = bmid;
+    factor = (factor - 0.5) * 2;
+  }
 
   var r = Math.round(factor * (r2 - r1) + r1).toString(16);
   var rHex = r.length === 1 ? "0" + r : r;
