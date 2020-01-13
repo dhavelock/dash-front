@@ -31,9 +31,6 @@ class Header extends Component {
           <Button variant="outlined" onClick={this.onClickView.bind(this)}>
             Toggle
           </Button>
-          <Button variant="outlined" onClick={this.onClickLogout.bind(this)}>
-            Logout
-          </Button>
         </Grid>
         <Grid item xs style={{ textAlign: "center" }}>
           <img
@@ -42,7 +39,11 @@ class Header extends Component {
             src={logo}
           />
         </Grid>
-        <Grid item xs></Grid>
+        <Grid item xs style={{ textAlign: "right" }}>
+          <Button variant="outlined" onClick={this.onClickLogout.bind(this)}>
+            Logout
+          </Button>
+        </Grid>
       </Grid>
     );
   }
