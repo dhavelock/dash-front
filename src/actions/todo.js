@@ -53,6 +53,32 @@ export const addTodoList = values => (dispatch, getState) => {
     });
 }
 
+export const deleteTodoList = list => (dispatch, getState) => {
+  const { token } = getState().auth
+
+  const request = axios({
+    method: "DELETE",
+    url: `${ROOT_URL}/todo/list/`,
+    data: {
+      list: list
+    },
+    headers: {
+      "Authorization": `Token ${token}`
+    }
+  });
+
+  return request
+    .then(res => {
+      dispatch({
+        type: type.DELETE_LIST,
+        payload: list
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 export const addTodoItem = values => (dispatch, getState) => {
   const { token } = getState().auth
 

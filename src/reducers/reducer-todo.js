@@ -28,6 +28,20 @@ export default function(state = initialState, action) {
         lists: newList
       };
 
+    case type.DELETE_LIST:
+      var delList = [...state.lists];
+      for (var k = 0; k < delList.length; k++) {
+        if (delList[k].id === action.payload) {
+          delList.splice(k, 1);
+          break;
+        }
+      }
+
+      return {
+        ...state,
+        lists: delList
+      }
+      
     case type.ADD_TODO_ITEM:
       const newListsAdd = [...state.lists];
       for (var i = 0; i < newListsAdd.length; i++) {

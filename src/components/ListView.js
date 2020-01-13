@@ -12,7 +12,7 @@ import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 
-import { fetchLists, showAddListModal } from "../actions/todo";
+import { fetchLists, showAddListModal, deleteTodoList } from "../actions/todo";
 
 import TodoItem from "./TodoItem";
 import AddListModal from "./modals/AddListModal";
@@ -40,6 +40,10 @@ class ListView extends Component {
     this.props.showAddListModal(list);
   }
 
+  onClickClear(list) {
+    this.props.deleteTodoList(list);
+  }
+
   onClickAddNewList() {
     this.setState({ showInput: !this.state.showInput });
   }
@@ -57,36 +61,42 @@ class ListView extends Component {
         <Box display="flex" flexDirection="row">
           {lists.map((list, index) => {
             return (
-              <Card className={classes.card} key={index}>
-                <Box key={index}>
-                  <div>
-                    <AddListModal key={index} list={list.id} />
-                    <Grid
-                      container
-                      direction="row"
-                      justify="space-between"
-                      alignItems="center"
-                    >
-                      <Typography style={{ paddingLeft: "5px" }}>
-                        {list.name}
-                      </Typography>
-                      <div>
-                        <IconButton
-                          size="medium"
-                          onClick={() => this.onClickPlus(list.id)}
-                        >
-                          <Icon size="medium">add</Icon>
-                        </IconButton>
-                      </div>
-                    </Grid>
-                  </div>
-                  <List className={classes.root}>
-                    {list.items.map((item, index) => {
-                      return <TodoItem item={item} key={index} />;
-                    })}
-                  </List>
-                </Box>
-              </Card>
+                <Card style={{display: 'block'}} className={classes.card} key={index}>
+                  <Box key={index}>
+                    <div>
+                      <AddListModal key={index} list={list.id} />
+                      <Grid
+                        container
+                        direction="row"
+                        justify="space-between"
+                        alignItems="center"
+                      >
+                        <Typography style={{ paddingLeft: "5px" }}>
+                          {list.name}
+                        </Typography>
+                        <div>
+                          <IconButton
+                            size="small"
+                            onClick={() => this.onClickPlus(list.id)}
+                          >
+                            <Icon size="small">add</Icon>
+                          </IconButton>
+                          <IconButton
+                            size="small"
+                            onClick={() => this.onClickClear(list.id)}
+                          >
+                            <Icon size="small">clear</Icon>
+                          </IconButton>
+                        </div>
+                      </Grid>
+                    </div>
+                    <List className={classes.root}>
+                      {list.items.map((item, index) => {
+                        return <TodoItem item={item} key={index} />;
+                      })}
+                    </List>
+                  </Box>
+                </Card>
             );
           })}
         </Box>
@@ -102,7 +112,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchLists, showAddListModal }, dispatch);
+  return bindActionCreators(
+    { fetchLists, showAddListModal, deleteTodoList },
+    dispatch
+  );
 }
 
 ListView.propTypes = {
@@ -110,8 +123,5 @@ ListView.propTypes = {
 };
 
 export default withStyles(styles)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(ListView)
+  connect(mapStateToProps, mapDispatchToProps)(ListView)
 );

@@ -2,6 +2,7 @@
 export const FETCH_LISTS = "FETCH_LISTS";
 export const FETCH_LIST = "FETCH_LIST";
 export const ADD_LIST = "ADD_LIST";
+export const DELETE_LIST = "DELETE_LIST";
 export const ADD_TODO_ITEM = "ADD_TODO_ITEM";
 export const DELETE_TODO_ITEM = "DELETE_TODO_ITEM";
 

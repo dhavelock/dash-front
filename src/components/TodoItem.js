@@ -26,10 +26,13 @@ const styles = theme => ({
   }
 });
 
-function color(now, created) {
-  var period = 7.0;
+function color(deadline, created) {
+  const now = moment();
+  var period = (deadline - created) / (1000 * 3600 * 24);
   var days = (now - created) / (1000 * 3600 * 24);
   var factor = days > period ? 1.0 : days / period;
+
+  console.log(factor);
 
   var r1 = 99.0;
   var r2 = 255.0;
@@ -69,11 +72,14 @@ class TodoItem extends Component {
   render() {
     const { item, classes } = this.props;
 
-    const now = moment();
-    const created = moment(item.timestamp);
-    const itemColor = color(now, created);
+    const itemColor = item.deadline
+      ? color(moment(item.deadline), moment(item.timestamp))
+      : "#66b3ff";
 
-    const deadline = item.deadline == null ? "" : moment(item.deadline).format('MMMM Do, h:mm a');
+    const deadlineStr =
+      item.deadline == null
+        ? ""
+        : moment(item.deadline).format("MMMM Do, h:mm a");
 
     const background = {
       background: itemColor
@@ -104,12 +110,13 @@ class TodoItem extends Component {
                   >
                     {item.description}
                   </Typography>
+                  {item.description !== "" && <br />}
                   <Typography
                     component="span"
                     variant="body2"
                     color="textPrimary"
                   >
-                    {deadline}
+                    {deadlineStr}
                   </Typography>
                 </React.Fragment>
               }
@@ -117,9 +124,9 @@ class TodoItem extends Component {
             <IconButton size="small" onClick={this.onDelete.bind(this)}>
               <Icon size="small">clear</Icon>
             </IconButton>
-            <IconButton size="small" onClick={this.onEdit.bind(this)}>
+            {/* <IconButton size="small" onClick={this.onEdit.bind(this)}>
               <Icon size="small">more_vert</Icon>
-            </IconButton>
+            </IconButton> */}
           </ListItem>
         </Card>
       </Grow>
@@ -140,8 +147,5 @@ TodoItem.propTypes = {
 };
 
 export default withStyles(styles)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(TodoItem)
+  connect(mapStateToProps, mapDispatchToProps)(TodoItem)
 );
