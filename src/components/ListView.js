@@ -61,42 +61,46 @@ class ListView extends Component {
         <Box display="flex" flexDirection="row">
           {lists.map((list, index) => {
             return (
-                <Card style={{display: 'block'}} className={classes.card} key={index}>
-                  <Box key={index}>
-                    <div>
-                      <AddListModal key={index} list={list.id} />
-                      <Grid
-                        container
-                        direction="row"
-                        justify="space-between"
-                        alignItems="center"
-                      >
-                        <Typography style={{ paddingLeft: "5px" }}>
-                          {list.name}
-                        </Typography>
-                        <div>
-                          <IconButton
-                            size="small"
-                            onClick={() => this.onClickPlus(list.id)}
-                          >
-                            <Icon size="small">add</Icon>
-                          </IconButton>
-                          <IconButton
-                            size="small"
-                            onClick={() => this.onClickClear(list.id)}
-                          >
-                            <Icon size="small">clear</Icon>
-                          </IconButton>
-                        </div>
-                      </Grid>
-                    </div>
-                    <List className={classes.root}>
-                      {list.items.map((item, index) => {
-                        return <TodoItem item={item} key={index} />;
-                      })}
-                    </List>
-                  </Box>
-                </Card>
+              <Card
+                style={{ display: "block" }}
+                className={classes.card}
+                key={index}
+              >
+                <Box key={index}>
+                  <div>
+                    <AddListModal key={index} list={list.id} />
+                    <Grid
+                      container
+                      direction="row"
+                      justify="space-between"
+                      alignItems="center"
+                    >
+                      <Typography style={{ paddingLeft: "5px" }}>
+                        {list.name}
+                      </Typography>
+                      <div>
+                        <IconButton
+                          size="small"
+                          onClick={() => this.onClickPlus(list.id)}
+                        >
+                          <Icon size="small">add</Icon>
+                        </IconButton>
+                        <IconButton
+                          size="small"
+                          onClick={() => this.onClickClear(list.id)}
+                        >
+                          <Icon size="small">clear</Icon>
+                        </IconButton>
+                      </div>
+                    </Grid>
+                  </div>
+                  <List className={classes.root}>
+                    {list.items.map((item, index) => {
+                      return <TodoItem item={item} key={index} />;
+                    })}
+                  </List>
+                </Box>
+              </Card>
             );
           })}
         </Box>
